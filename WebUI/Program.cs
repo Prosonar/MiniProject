@@ -1,6 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddHttpClient();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
@@ -17,5 +18,11 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.MapControllerRoute(
+    name: "product",
+    pattern: "/product",
+    defaults: new { controller = "Product", action = "Index" }
+    );
 
 app.Run();
