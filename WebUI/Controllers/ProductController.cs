@@ -15,15 +15,13 @@ namespace WebUI.Controllers
         public async Task<IActionResult> Index()
         {
 
-            var httpRequestMessage = new HttpRequestMessage(
-            HttpMethod.Get,
-            "http://localhost:5131/Category")
+            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get,"http://localhost:52448/Category")
             {
                 Headers =
-            {
-                { HeaderNames.Accept, "text/plain" },
-                { HeaderNames.UserAgent, "HttpRequestsSample" }
-            }
+                {
+                    { HeaderNames.Accept, "text/plain" },
+                    { HeaderNames.UserAgent, "HttpRequestsSample" }
+                }
             };
 
             var httpClient = _httpClientFactory.CreateClient();
@@ -35,7 +33,7 @@ namespace WebUI.Controllers
                     await httpResponseMessage.Content.ReadAsStreamAsync();
 
                 var  result = await JsonSerializer.DeserializeAsync
-                    <IEnumerable<Category>>(contentStream);
+                    <DataResultModel<List<CategoryModel>>>(contentStream,new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
             }
             return View();
         }

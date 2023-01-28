@@ -32,7 +32,6 @@ namespace DataAccess.Migrations
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     StockAmount = table.Column<long>(type: "bigint", nullable: false),
                     About = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>

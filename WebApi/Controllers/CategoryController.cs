@@ -1,4 +1,5 @@
 ﻿using Business.Abstract.Service;
+using Core.Utilities.Messages;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using Entity.Concrete;
@@ -20,7 +21,12 @@ namespace WebApi.Controllers
         [HttpGet]
         public IDataResult<List<Category>> GetCategories()
         {
-            return new SuccessDataResult<List<Category>>(_categoryService.GetAllByFilter().Data.ToList());
+            var result = _categoryService.GetAllByFilter();
+            if(result.Success)
+            {
+                return new SuccessDataResult<List<Category>>(result.Data.ToList(),ResultMessage.SuccessMessage);
+            }
+            return new ErrorDataResult<List<Category>>(ResultMessage.Errormessage);
         }
         [HttpPost]
         public IDataResult<Category> AddCategory(Category category)
