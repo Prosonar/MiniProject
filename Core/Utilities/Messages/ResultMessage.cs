@@ -10,5 +10,10 @@ namespace Core.Utilities.Messages
     {
         public const string SuccessMessage = "İşlem Başarılı";
         public const string Errormessage = "İşlem Başarısız. Lütfen daha sonra tekrar deneyiniz.";
+
+        public const string DatabaseError = "Veritabanı hatası.";
+        public const string DatabaseSaveChangesError = "Veritabanı kaydetme hatası.";
+
+        public const string DataNotFound = "Veri bulunamadı.";
     }
 }

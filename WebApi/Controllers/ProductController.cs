@@ -8,18 +8,20 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
+        private readonly ICategoryService _categoryService;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService , ICategoryService categoryService)
         {
             _productService = productService;
+            _categoryService = categoryService;
         }
 
         [HttpGet]
-        public IDataResult<List<Product>> GetCategories()
+        public IDataResult<List<Product>> GetProducts()
         {
             var result = _productService.GetAllByFilter();
             if (result.Success)
@@ -28,12 +30,28 @@ namespace WebApi.Controllers
             }
             return new ErrorDataResult<List<Product>>(ResultMessage.Errormessage);
         }
-        [HttpPost]
-        public IDataResult<Product> AddCategory(Product product)
+
+        [HttpGet("{id}")]
+        public IDataResult<List<Category>> GetAllCategoriesForProduct(int productId)
         {
-            var result = _productService.Add(product);
-            _productService.SaveChanges();
-            return result;
+            var result = _productService.GetAllCategoryForProduct(productId);
+            if (result.Success)
+            {
+                return new SuccessDataResult<List<Category>>(result.Data.ToList(), ResultMessage.SuccessMessage);
+            }
+            return new ErrorDataResult<List<Category>>(ResultMessage.Errormessage);
+        }
+
+        [HttpPost]
+        public IDataResult<Product> AddProduct(Product product)
+        {
+            var isAdded = _productService.Add(product);
+            var isSaved = _productService.SaveChanges();
+            if(isAdded.Success && isSaved.Success)
+            {
+                return isAdded;
+            }
+            return new ErrorDataResult<Product>(ResultMessage.Errormessage);
         }
     }
 }

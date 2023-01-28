@@ -1,5 +1,6 @@
 ﻿using Core.DataAccess.BaseRepositories;
 using Core.Entity;
+using Core.Utilities.Messages;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using Microsoft.EntityFrameworkCore;
@@ -24,13 +25,13 @@ namespace Core.DataAccess.EntityFramework
                 var result = await context.Set<TEntity>().FirstOrDefaultAsync(filter);
                 if (result is null)
                 {
-                    return new ErrorDataResult<TEntity?>("Veri bulunamadı!");
+                    return new ErrorDataResult<TEntity?>(ResultMessage.DataNotFound);
                 }
-                return new SuccessDataResult<TEntity?>(result);
+                return new SuccessDataResult<TEntity?>(result, ResultMessage.SuccessMessage);
             }
-            catch (Exception)
+            catch
             {
-                return new ErrorDataResult<TEntity?>("Veritabanı hatası!");
+                return new ErrorDataResult<TEntity?>(ResultMessage.DatabaseError);
             }
         }
 
@@ -42,13 +43,13 @@ namespace Core.DataAccess.EntityFramework
 
                 if (result is null)
                 {
-                    return new ErrorDataResult<TEntity?>("Veri bulunamadı!");
+                    return new ErrorDataResult<TEntity?>(ResultMessage.DataNotFound);
                 }
-                return new SuccessDataResult<TEntity?>(result);
+                return new SuccessDataResult<TEntity?>(result, ResultMessage.SuccessMessage);
             }
-            catch (Exception)
+            catch
             {
-                return new ErrorDataResult<TEntity?>("Veritabanı hatası!");
+                return new ErrorDataResult<TEntity?>(ResultMessage.DatabaseError);
             }
         }
 
@@ -79,11 +80,11 @@ namespace Core.DataAccess.EntityFramework
                         result = context.Set<TEntity>().AsNoTracking().Where(filter);
                     }
                 }
-                return new SuccessDataResult<IQueryable<TEntity>>(result);
+                return new SuccessDataResult<IQueryable<TEntity>>(result, ResultMessage.SuccessMessage);
             }
-            catch (Exception)
+            catch
             {
-                return new ErrorDataResult<IQueryable<TEntity>>("Veritabanı hatası!");
+                return new ErrorDataResult<IQueryable<TEntity>>(ResultMessage.DatabaseError);
             }
         }
 
@@ -93,11 +94,11 @@ namespace Core.DataAccess.EntityFramework
             {
                 var entityToAdd = context.Entry(entity);
                 entityToAdd.State = EntityState.Added;
-                return new SuccessDataResult<TEntity>(entity);
+                return new SuccessDataResult<TEntity>(entity,ResultMessage.SuccessMessage);
             }
-            catch (Exception)
+            catch
             {
-                return new ErrorDataResult<TEntity>("Veritabanı hatası!");
+                return new ErrorDataResult<TEntity>(ResultMessage.DatabaseError);
             }
         }
 
@@ -106,11 +107,11 @@ namespace Core.DataAccess.EntityFramework
             try
             {
                 context.Set<TEntity>().AddRange(entities);
-                return new SuccessDataResult<IEnumerable<TEntity>>(entities);
+                return new SuccessDataResult<IEnumerable<TEntity>>(entities, ResultMessage.SuccessMessage);
             }
-            catch (Exception)
+            catch
             {
-                return new ErrorDataResult<IEnumerable<TEntity>>("Veritabanı hatası!");
+                return new ErrorDataResult<IEnumerable<TEntity>>(ResultMessage.DatabaseError);
             }
         }
 
@@ -120,11 +121,11 @@ namespace Core.DataAccess.EntityFramework
             {
                 var entityToDelete = context.Entry(entity);
                 entityToDelete.State = EntityState.Deleted;
-                return new SuccessResult();
+                return new SuccessResult(ResultMessage.SuccessMessage);
             }
-            catch (Exception)
+            catch
             {
-                return new ErrorResult("Veritabanı hatası!");
+                return new ErrorResult(ResultMessage.DatabaseError);
             }
         }
 
@@ -133,11 +134,11 @@ namespace Core.DataAccess.EntityFramework
             try
             {
                 context.Set<TEntity>().RemoveRange(context.Set<TEntity>().Where(filter));
-                return new SuccessResult();
+                return new SuccessResult(ResultMessage.SuccessMessage);
             }
-            catch (Exception)
+            catch
             {
-                return new ErrorResult("Veritabanı hatası");
+                return new ErrorResult(ResultMessage.DatabaseError);
             }
 
         }
@@ -148,11 +149,11 @@ namespace Core.DataAccess.EntityFramework
             {
                 var entityToUpdate = context.Entry(entity);
                 entityToUpdate.State = EntityState.Modified;
-                return new SuccessDataResult<TEntity>(entity);
+                return new SuccessDataResult<TEntity>(entity, ResultMessage.SuccessMessage);
             }
-            catch (Exception)
+            catch
             {
-                return new ErrorDataResult<TEntity>("Veritabanı hatası!");
+                return new ErrorDataResult<TEntity>(ResultMessage.DatabaseError);
             }
         }
 
@@ -162,11 +163,11 @@ namespace Core.DataAccess.EntityFramework
             {
                 await context.SaveChangesAsync();
                 context.ChangeTracker.Clear();
-                return new SuccessResult();
+                return new SuccessResult(ResultMessage.SuccessMessage);
             }
-            catch (Exception)
+            catch
             {
-                return new ErrorResult("Veritabanına kaydetme hatası!");
+                return new ErrorResult(ResultMessage.DatabaseSaveChangesError);
             }
         }
 
@@ -176,11 +177,11 @@ namespace Core.DataAccess.EntityFramework
             {
                 context.SaveChanges();
                 context.ChangeTracker.Clear();
-                return new SuccessResult();
+                return new SuccessResult(ResultMessage.SuccessMessage);
             }
-            catch (Exception ex)
+            catch
             {
-                return new ErrorResult("Veritabanına kaydetme hatası!");
+                return new ErrorResult(ResultMessage.DatabaseSaveChangesError);
             }
         }
 

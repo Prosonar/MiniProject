@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
@@ -28,12 +28,28 @@ namespace WebApi.Controllers
             }
             return new ErrorDataResult<List<Category>>(ResultMessage.Errormessage);
         }
+
+        [HttpGet("{id}")]
+        public IDataResult<List<Product>> GetAllProductsByCategory(int categoryId)
+        {
+            var result = _categoryService.GetAllProductByCategory(categoryId);
+            if (result.Success)
+            {
+                return new SuccessDataResult<List<Product>>(result.Data.ToList(), ResultMessage.SuccessMessage);
+            }
+            return new ErrorDataResult<List<Product>>(ResultMessage.Errormessage);
+        }
+
         [HttpPost]
         public IDataResult<Category> AddCategory(Category category)
         {
-            var result =  _categoryService.Add(category);
-            _categoryService.SaveChanges();
-            return result;
+            var isAdded =  _categoryService.Add(category);
+            var isSaved = _categoryService.SaveChanges();
+            if(isAdded.Success && isSaved.Success)
+            {
+                return isAdded;
+            }
+            return new ErrorDataResult<Category>(ResultMessage.Errormessage);
         }
     }
 }
