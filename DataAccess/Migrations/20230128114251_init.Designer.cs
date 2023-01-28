@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(EtradeContext))]
-    [Migration("20230127200637_init")]
+    [Migration("20230128114251_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

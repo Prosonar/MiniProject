@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
@@ -23,7 +25,9 @@ namespace WebApi.Controllers
         [HttpPost]
         public IDataResult<Category> AddCategory(Category category)
         {
-            return _categoryService.Add(category);
+            var result =  _categoryService.Add(category);
+            _categoryService.SaveChanges();
+            return result;
         }
     }
 }
