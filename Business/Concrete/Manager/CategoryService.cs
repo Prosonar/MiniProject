@@ -9,12 +9,10 @@ namespace Business.Concrete.Manager
 {
     public class CategoryService : CategoryDal, ICategoryService
     {
-        private readonly IProductService _productService;
         private readonly IProductCategoryService _productCategoryService;
 
-        public CategoryService(IProductService productService , IProductCategoryService productCategoryService)
+        public CategoryService(IProductCategoryService productCategoryService)
         {
-            _productService = productService;
             _productCategoryService = productCategoryService;
         }
 

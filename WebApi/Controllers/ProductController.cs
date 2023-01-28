@@ -8,16 +8,14 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/")]
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
-        private readonly ICategoryService _categoryService;
 
-        public ProductController(IProductService productService , ICategoryService categoryService)
+        public ProductController(IProductService productService)
         {
             _productService = productService;
-            _categoryService = categoryService;
         }
 
         [HttpGet]
@@ -31,7 +29,7 @@ namespace WebApi.Controllers
             return new ErrorDataResult<List<Product>>(ResultMessage.Errormessage);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{productId}")]
         public IDataResult<List<Category>> GetAllCategoriesForProduct(int productId)
         {
             var result = _productService.GetAllCategoryForProduct(productId);
@@ -52,6 +50,18 @@ namespace WebApi.Controllers
                 return isAdded;
             }
             return new ErrorDataResult<Product>(ResultMessage.Errormessage);
+        }
+
+        [HttpPost("add-category")]
+        public IDataResult<ProductCategory> AddCategoryToProduct(ProductCategory productCategory)
+        {
+            var isAdded = _productService.AddCategoryToProduct(productCategory);
+            var isSaved = _productService.SaveChanges();
+            if(isAdded.Success && !isSaved.Success)
+            {
+                return isAdded;
+            }
+            return new ErrorDataResult<ProductCategory>(ResultMessage.Errormessage);
         }
     }
 }

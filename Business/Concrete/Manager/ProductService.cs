@@ -9,13 +9,22 @@ namespace Business.Concrete.Manager
 {
     public class ProductService : ProductDal, IProductService
     {
-        private readonly ICategoryService _categoryService;
         private readonly IProductCategoryService _productCategoryService;
 
-        public ProductService(ICategoryService categoryService, IProductCategoryService productCategoryService)
+        public ProductService(IProductCategoryService productCategoryService)
         {
-            _categoryService = categoryService;
             _productCategoryService = productCategoryService;
+        }
+
+        public IDataResult<ProductCategory> AddCategoryToProduct(ProductCategory productCategory)
+        {
+            var isAdded = _productCategoryService.Add(productCategory);
+            var isSaved = _productCategoryService.SaveChanges();
+            if(!isAdded.Success || !isSaved.Success)
+            {
+                return new ErrorDataResult<ProductCategory>(ResultMessage.Errormessage);
+            }
+            return new SuccessDataResult<ProductCategory>(isAdded.Data, ResultMessage.SuccessMessage);
         }
 
         public IDataResult<List<Category>> GetAllCategoryForProduct(int productId)

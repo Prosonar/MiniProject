@@ -8,5 +8,6 @@ namespace Business.Abstract.Service
     {
         IDataResult<List<Category>> GetAllCategoryForProduct(int productId);
         IDataResult<List<Category>> GetAllCategoryForProduct(Product product);
+        IDataResult<ProductCategory> AddCategoryToProduct(ProductCategory productCategory);
     }
 }

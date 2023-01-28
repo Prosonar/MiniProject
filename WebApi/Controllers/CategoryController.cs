@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/")]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
@@ -29,7 +29,7 @@ namespace WebApi.Controllers
             return new ErrorDataResult<List<Category>>(ResultMessage.Errormessage);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{categoryId}")]
         public IDataResult<List<Product>> GetAllProductsByCategory(int categoryId)
         {
             var result = _categoryService.GetAllProductByCategory(categoryId);

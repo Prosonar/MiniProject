@@ -11,13 +11,13 @@ namespace Business.Concrete.Manager
 {
     public class ProductCategoryService : ProductCategoryDal , IProductCategoryService
     {
-        private readonly IProductService _productService;
-        private readonly ICategoryService _categoryService;
-        public ProductCategoryService(IProductService productService , ICategoryService categoryService)
-        {
-            _categoryService = categoryService;
-            _productService = productService; 
-        }
+        //private readonly IProductService _productService;
+        //private readonly ICategoryService _categoryService;
+        //public ProductCategoryService(IProductService productService , ICategoryService categoryService)
+        //{
+        //    _categoryService = categoryService;
+        //    _productService = productService; 
+        //}
         public override IDataResult<IQueryable<ProductCategory>> GetAllByFilter(Expression<Func<ProductCategory, bool>>? filter = null, bool tracking = true)
         {
             var result = base.GetAllByFilter(filter, tracking);
@@ -30,20 +30,20 @@ namespace Business.Concrete.Manager
             return new SuccessDataResult<IQueryable<ProductCategory>>(data,ResultMessage.SuccessMessage);
         }
 
-        public override IDataResult<ProductCategory?> Get(Expression<Func<ProductCategory, bool>> filter)
-        {
-            var productCategory =  base.Get(filter).Data;
-            if(productCategory is null)
-            {
-                return new ErrorDataResult<ProductCategory?>(ResultMessage.Errormessage);
-            }
+        //public override IDataResult<ProductCategory?> Get(Expression<Func<ProductCategory, bool>> filter)
+        //{
+        //    var productCategory =  base.Get(filter).Data;
+        //    if(productCategory is null)
+        //    {
+        //        return new ErrorDataResult<ProductCategory?>(ResultMessage.Errormessage);
+        //    }
 
-            var product = _productService.Get(x => x.Id == productCategory.Id).Data;
-            var category = _categoryService.Get(x => x.Id == productCategory.CategoryId).Data;
-            productCategory.Product = product;
-            productCategory.Category = category;
+        //    var product = _productService.Get(x => x.Id == productCategory.Id).Data;
+        //    var category = _categoryService.Get(x => x.Id == productCategory.CategoryId).Data;
+        //    productCategory.Product = product;
+        //    productCategory.Category = category;
 
-            return new SuccessDataResult<ProductCategory?>(productCategory, ResultMessage.SuccessMessage);
-        }
+        //    return new SuccessDataResult<ProductCategory?>(productCategory, ResultMessage.SuccessMessage);
+        //}
     }
 }
