@@ -15,7 +15,7 @@ namespace WebUI.Controllers
         public async Task<IActionResult> Index()
         {
 
-            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, "http://localhost:5131/api/Category")
+            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, "http://localhost:52448/api/Category")
             {
                 Headers =
                 {
@@ -40,7 +40,7 @@ namespace WebUI.Controllers
 
         public async Task<List<ProductModel>> GetAllProductByCategory(int categoryId)
         {
-            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, String.Concat("http://localhost:5131/api/Category/",categoryId.ToString()))
+            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, String.Concat("http://localhost:52448/api/Category/", categoryId.ToString()))
             {
                 Headers =
                 {

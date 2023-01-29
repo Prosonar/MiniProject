@@ -26,7 +26,7 @@
                     @foreach (var item in Model.Data)
                     {
                         <li class="nav-item">
-                            <button type="button" onclick="getProduct(@item.Id)" class="nav-link categoryButton">@item.Name</button>
+                            <button type="button" onclick="getProduct()" class="nav-link categoryButton">@item.Name</button>
                         </li>
                     }
                 }
@@ -39,23 +39,31 @@
             </ul>
         </div>
     </nav>
-    @for (int i = 0; i < 5; i++)
-    {
-        <div class="card" style="width: 18rem;display:inline-block;">
-            <div class="card-body">
-                <h5 class="card-title">item.Name</h5>
-                <p class="card-text">item.About</p>
-                <button class="btn btn-primary">item.Price</button>
-            </div>
-        </div>
-    }
-    <script>  
-        function getProduct(id) {
-            let products = []
-            const uri = 'product/'.concat(id);
-            fetch(uri)
-                .then(Response => products)
-                .catch(error => console.error('Unable to get items.', error));
+    <div class="container">
+        
+    </div>
+
+    <script type="text/javascript" charset="utf-8">
+
+        function getProduct() {
+            let products = ["Test","Deneme","123"];
+            //const uri = 'product/'.concat(2);
+            //fetch(uri)
+            //    .then(Response => products)
+            //    .catch(error => console.error('Unable to get items.', error));
+            document.querySelector('.container').innerHTML = ``;
+            var dynamic = document.querySelector('.container');
+            for(var i = 0; i<products.length;i++)
+            {
+                var fecht = document.querySelector(".container").innerHTML;
+                dynamic.innerHTML = `<div class="card" style="width: 18rem;display:inline-block;">
+                <div class="card-body">
+                <h5 class="card-title">${products[i]}</h5>
+                <p class="card-text">${products[i]}</p>
+                <button class="btn btn-primary">${products[i]}</button>
+                </div>
+                </div>` + fecht;
+            }
         }
     </script>
 </body>
