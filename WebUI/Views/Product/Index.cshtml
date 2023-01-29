@@ -9,6 +9,8 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/lib/bootstrap/dist/css/bootstrap-grid.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="/lib/bootstrap/dist/css/bootstrap-reboot.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="/lib/bootstrap/dist/css/bootstrap-utilities.css" />
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/jquery-validation/dist/additional-methods.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -24,7 +26,7 @@
                     @foreach (var item in Model.Data)
                     {
                         <li class="nav-item">
-                            <button class="nav-link categoryButton" type="button" data-id="@item.Id">@item.Name</button>
+                            <button type="button" onclick="getProduct(@item.Id)" class="nav-link categoryButton">@item.Name</button>
                         </li>
                     }
                 }
@@ -47,15 +49,14 @@
             </div>
         </div>
     }
-    <script>
-        $(document).ready(function() {
-            $(".categoryButton").click(function() {
-                let id = $(this).data("id");
-                const uri = 'product/3';
-                fetch(uri)
-                    .catch(error => console.error('Unable to send email.', error));
-            });
-        });
+    <script>  
+        function getProduct(id) {
+            let products = []
+            const uri = 'product/'.concat(id);
+            fetch(uri)
+                .then(Response => products)
+                .catch(error => console.error('Unable to get items.', error));
+        }
     </script>
 </body>
 </html>
