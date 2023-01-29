@@ -20,9 +20,14 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.MapControllerRoute(
-    name: "product",
-    pattern: "/product",
+    name: "home",
+    pattern: "/",
     defaults: new { controller = "Product", action = "Index" }
+    );
+app.MapControllerRoute(
+    name: "product",
+    pattern: "/product/{categoryId}",
+    defaults: new { controller = "Product", action = "GetAllProductByCategory" }
     );
 
 app.Run();

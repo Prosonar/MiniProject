@@ -1,1 +1,61 @@
-﻿
+﻿@using WebUI.Models;
+@model DataResultModel<List<CategoryModel>>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" media="screen" href="/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/lib/bootstrap/dist/css/bootstrap-grid.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/lib/bootstrap/dist/css/bootstrap-reboot.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/lib/bootstrap/dist/css/bootstrap-utilities.css" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                @if (Model is not null)
+                {
+                    @foreach (var item in Model.Data)
+                    {
+                        <li class="nav-item">
+                            <button class="nav-link categoryButton" type="button" data-id="@item.Id">@item.Name</button>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <button class="nav-link">Beklenmedik bir hata oluştu!</button>
+                    </li>
+                }
+            </ul>
+        </div>
+    </nav>
+    @for (int i = 0; i < 5; i++)
+    {
+        <div class="card" style="width: 18rem;display:inline-block;">
+            <div class="card-body">
+                <h5 class="card-title">item.Name</h5>
+                <p class="card-text">item.About</p>
+                <button class="btn btn-primary">item.Price</button>
+            </div>
+        </div>
+    }
+    <script>
+        $(document).ready(function() {
+            $(".categoryButton").click(function() {
+                let id = $(this).data("id");
+                const uri = 'product/3';
+                fetch(uri)
+                    .catch(error => console.error('Unable to send email.', error));
+            });
+        });
+    </script>
+</body>
+</html>

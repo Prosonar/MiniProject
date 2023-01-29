@@ -11,6 +11,11 @@ namespace WebApi.Controllers
     [Route("api/[controller]/")]
     public class CategoryController : Controller
     {
+        //List<Category> categories = new List<Category>();
+        //categories.Add(new Category { Id = 1, Name = "Elektronik", IsActive = true });
+        //categories.Add(new Category { Id = 2, Name = "Oyuncak", IsActive = true });
+        //categories.Add(new Category { Id = 3, Name = "Teknoloji", IsActive = true });
+        //return new SuccessDataResult<List<Category>>(categories, ResultMessage.SuccessMessage);
         private readonly ICategoryService _categoryService;
 
         public CategoryController(ICategoryService categoryService)
@@ -22,9 +27,9 @@ namespace WebApi.Controllers
         public IDataResult<List<Category>> GetCategories()
         {
             var result = _categoryService.GetAllByFilter();
-            if(result.Success)
+            if (result.Success)
             {
-                return new SuccessDataResult<List<Category>>(result.Data.ToList(),ResultMessage.SuccessMessage);
+                return new SuccessDataResult<List<Category>>(result.Data.ToList(), ResultMessage.SuccessMessage);
             }
             return new ErrorDataResult<List<Category>>(ResultMessage.Errormessage);
         }
