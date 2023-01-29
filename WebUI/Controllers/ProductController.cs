@@ -5,9 +5,11 @@ using WebUI.Models;
 
 namespace WebUI.Controllers
 {
+    //For connection you need the set port number.
     public class ProductController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        private const string Port = "52448";
         public ProductController(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
@@ -15,7 +17,7 @@ namespace WebUI.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, "http://localhost:52448/api/Category")
+            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, $"http://localhost:{Port}/api/Category")
             {
                 Headers =
                 {
@@ -40,7 +42,7 @@ namespace WebUI.Controllers
 
         public async Task<List<ProductModel>> GetAllProductByCategory(int categoryId)
         {
-            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, String.Concat("http://localhost:52448/api/Category/", categoryId.ToString()))
+            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, String.Concat($"http://localhost:{Port}/api/Category/", categoryId.ToString()))
             {
                 Headers =
                 {
