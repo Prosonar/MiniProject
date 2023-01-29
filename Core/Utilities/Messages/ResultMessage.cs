@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Core.Utilities.Messages
 {
+    /// <summary>
+    /// Turkish messages for information
+    /// </summary>
     public static class ResultMessage
     {
         public const string SuccessMessage = "İşlem Başarılı";
