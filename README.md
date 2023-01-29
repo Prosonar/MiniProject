@@ -1,1 +1,4 @@
 # MiniProject
+
+Projede 4 kütüphane, 1 web api ve bir de web uygulama bulunmaktadır. Web uygulamasının biğer kütüphaneler ya da web api ile herhangi bir referans ile
+bağlantısı bulunmamaktadır. Solution ayarlarından yapılan değişiklikle aynı anda hem web api hem de web uygulaması çalışmakta ve web uygulaması web apiye istek atmaktadır. Projede bulunan kütüphaneleri sadece web api kullanmaktadır ve düz akış ile bağlantılar kurulmaktadır. Projede istenilen işlemlerin çoğu yapılmaktadır. Eksik olan tek konu javascript ile istek atıldıktan sonra gelen veriyi HTML içine doldurma işlemidir. Proje hakkında detaylı bir şekilde konuşmak isterim eğer siz de isterseniz.

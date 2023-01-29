@@ -1,0 +1,20 @@
+1. Which programming language did you use?
+
+    When I was in university, I do not know which programming language the best for me. Because of that I try C, C++ ,C#
+Java, Pyhton, Kotlin ,HTML,CSS... After that I choose C++ and C# because I like the way I code and I think these are very usefull programmig
+languages.
+
+2. Which books did you read to be a better software engineer?
+
+    I usually do not read books for improve my tech skill. I prefer to search on Interner. However when I try to learn C++ I red some books.
+
+3. Which blogs, websites do you follow and what is the frequency?
+
+    I prefer Youtube for technical skills because it is free and there are alot of videos. But I follow Medium, Microsoft .Net documantion, 
+StackoverFlow and Udemy. Whenever I got a problem I use this platforms but when I want to learn something new I use Udemy, BTK Academy, Kodlama.io.
+
+4. What is an abstract class in C# and for which purpose we use it?
+
+   Abstract classes are used for polimorhism. You can not create a abstract class instance. It can includes fields, properties, functions and constructors. 
+In Abstract class you can create virtual functions. Whenever a class inherit from an abstract class, it can override the virtual methods. We use abstract class
+for a template. For example If I need a base class and then the other classes inherit from this class but some methods in base class need to be changed when the others inherit then I use abstract class for base class. (Note I can explain this in Turkish better.)
