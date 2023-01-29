@@ -12,9 +12,9 @@ namespace WebUI.Controllers
         {
             _httpClientFactory = httpClientFactory;
         }
+
         public async Task<IActionResult> Index()
         {
-
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, "http://localhost:52448/api/Category")
             {
                 Headers =

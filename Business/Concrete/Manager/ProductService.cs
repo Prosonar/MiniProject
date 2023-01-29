@@ -18,6 +18,11 @@ namespace Business.Concrete.Manager
 
         public IDataResult<ProductCategory> AddCategoryToProduct(ProductCategory productCategory)
         {
+            var isThere = _productCategoryService.Get(x => x.ProductId == productCategory.ProductId && x.CategoryId == productCategory.CategoryId).Data;
+            if(isThere is not  null)
+            {
+                return new ErrorDataResult<ProductCategory>(ResultMessage.AlreadyHaveCategory);
+            }
             var isAdded = _productCategoryService.Add(productCategory);
             var isSaved = _productCategoryService.SaveChanges();
             if(!isAdded.Success || !isSaved.Success)

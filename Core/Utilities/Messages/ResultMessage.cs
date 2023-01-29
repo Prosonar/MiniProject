@@ -18,5 +18,6 @@ namespace Core.Utilities.Messages
         public const string DatabaseSaveChangesError = "Veritabanı kaydetme hatası.";
 
         public const string DataNotFound = "Veri bulunamadı.";
+        public const string AlreadyHaveCategory = "Bu ürün zaten bu kategoriye sahip. ";
     }
 }

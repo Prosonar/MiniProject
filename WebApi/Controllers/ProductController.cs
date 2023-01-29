@@ -57,7 +57,7 @@ namespace WebApi.Controllers
         {
             var isAdded = _productService.AddCategoryToProduct(productCategory);
             var isSaved = _productService.SaveChanges();
-            if(isAdded.Success && !isSaved.Success)
+            if(isAdded.Success && isSaved.Success)
             {
                 return isAdded;
             }
